@@ -1,8 +1,8 @@
-package com.tapad.advent
+package com.tapad.advent.day02
 
-import cats.effect.{ExitCode, IO, IOApp}
+import cats.effect._
 import fs2.Stream
-import fs2.io.file.{Files,Path}
+import fs2.io.file.{Path, Files}
 
 object PartTwo extends IOApp {
 
@@ -16,7 +16,7 @@ object PartTwo extends IOApp {
   )
 
   override def run(args: List[String]): IO[ExitCode] = {
-    val path = Path("day-02/src/main/resources/com/tapad/advent/day-two.txt")
+    val path = Path("src/main/resources/com/tapad/advent/day02/day02.txt")
 
     val fileInput = Files[IO]
       .readAll(path)

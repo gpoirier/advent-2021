@@ -1,9 +1,9 @@
-package com.tapad.advent
+package com.tapad.advent.day01
 
 import scala.io.Source
 
 object PartOne extends App {
-  val source = Source.fromURL(getClass.getResource("day-1.txt"))
+  val source = Source.fromURL(getClass.getResource("day01.txt"))
   val input =
     try source.getLines().toList
     finally source.close()
@@ -17,7 +17,7 @@ object PartOne extends App {
 
 object PartTwo {
   def main(args: Array[String]): Unit = {
-    val source = Source.fromURL(getClass.getResource("day-1.txt"))
+    val source = Source.fromURL(getClass.getResource("day01.txt"))
     val input =
       try source.getLines().toList
       finally source.close()

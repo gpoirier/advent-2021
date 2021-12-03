@@ -1,9 +1,9 @@
-package com.tapad.advent
+package com.tapad.advent.day02
 
-import cats.Monoid
-import cats.effect.{ExitCode, IO, IOApp}
+import cats._
+import cats.effect._
 import fs2.Stream
-import fs2.io.file.{Files,Path}
+import fs2.io.file.{Path, Files}
 
 object PartOne extends IOApp {
 
@@ -17,7 +17,7 @@ object PartOne extends IOApp {
   )
 
   override def run(args: List[String]): IO[ExitCode] = {
-    val path = Path("day-02/src/main/resources/com/tapad/advent/day-two.txt")
+    val path = Path("src/main/resources/com/tapad/advent/day02/day02.txt")
 
     val fileInput = Files[IO]
       .readAll(path)
@@ -53,14 +53,17 @@ object PartOne extends IOApp {
   case class Forward(value: Long) extends Direction {
     override def toPosition: Position = Position(value, 0)
   }
+
   case class Down(value: Long) extends Direction {
     override def toPosition: Position = Position(0, value)
   }
+
   case class Up(value: Long) extends Direction {
     override def toPosition: Position = Position(0, -value)
   }
 
   case class Position(horizontal: Long, depth: Long)
+
   object Position {
     val empty = Position(0, 0)
     implicit val PositionMonoid: Monoid[Position] =
