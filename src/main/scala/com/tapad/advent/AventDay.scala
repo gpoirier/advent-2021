@@ -16,12 +16,7 @@ trait AventDay extends IOApp {
   def task2(input: Stream[IO, String]): IO[Long]
 
   override def run(args: List[String]): IO[ExitCode] = {
-    val path = Path(s"src/main/resources/com/tapad/advent/${filename}")
-
-    val fileInput = Files[IO]
-      .readAll(path)
-      .through(fs2.text.utf8.decode)
-      .through(fs2.text.lines)
+    val fileInput = readFile(filename)
 
     for {
       testResult1 <- task1(testInput)
@@ -36,6 +31,14 @@ trait AventDay extends IOApp {
       _ <- info("Task 1: " + result1)
       _ <- info("Task 2: " + result2)
     } yield ExitCode.Success
+  }
+
+  def readFile(filename: String): Stream[IO, String] = {
+    val path = Path(s"src/main/resources/com/tapad/advent/${filename}")
+    Files[IO]
+      .readAll(path)
+      .through(fs2.text.utf8.decode)
+      .through(fs2.text.lines)
   }
 
   def printResult(name: String, value: Long, expected: Long): IO[Unit] =
