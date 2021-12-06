@@ -6,3 +6,5 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "kittens" % "2.3.2",
   "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.0"
 )
+
+Compile / mainClass := Some("com.tapad.advent.Day06")
