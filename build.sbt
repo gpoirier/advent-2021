@@ -7,4 +7,4 @@ libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.0"
 )
 
-Compile / mainClass := Some("com.tapad.advent.Day06")
+Compile / mainClass := Some("com.tapad.advent.Day07")
