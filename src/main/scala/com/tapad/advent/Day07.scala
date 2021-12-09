@@ -6,12 +6,13 @@ import fs2.Stream
 
 object Day07 extends AventDay {
   override val filename: String = "day07.txt"
-  override val testInput: Stream[IO, String] = Stream("16,1,2,0,4,2,7,1,2,14")
+  override val testInput: Stream[IO, String] = Stream("16","1","2","0","4","2","7","1","2","14")
+
+  override val partition = coma
 
   override val testOutput1: Long = 37
   override def task1(input: Stream[IO, String]): IO[Long] = {
-    input.compile.lastOrError map { line =>
-      val initial = line.split(",").toList.map(_.toInt)
+    input.map(_.toInt).compile.toList.map { initial =>
       val fuel = for {
         position <- initial.min to initial.max
       } yield {
@@ -25,8 +26,7 @@ object Day07 extends AventDay {
 
   override val testOutput2: Long = 168
   override def task2(input: Stream[IO, String]): IO[Long] = {
-    input.compile.lastOrError map { line =>
-      val initial = line.split(",").toList.map(_.toInt)
+    input.map(_.toInt).compile.toList.map { initial =>
       val candidates = for {
         position <- initial.min to initial.max
       } yield {

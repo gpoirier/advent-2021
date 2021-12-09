@@ -2,7 +2,7 @@ package com.tapad.advent
 
 import cats.syntax.eq._
 import cats.effect.{ExitCode, IO, IOApp}
-import fs2.Stream
+import fs2.{Pipe, Stream, Chunk}
 import fs2.io.file.{Files, Path}
 
 trait AventDay extends IOApp {
@@ -38,8 +38,12 @@ trait AventDay extends IOApp {
     Files[IO]
       .readAll(path)
       .through(fs2.text.utf8.decode)
-      .through(fs2.text.lines)
+      .through(partition)
   }
+
+  def partition: Pipe[IO, String, String] = fs2.text.lines
+
+  def coma: Pipe[IO, String, String] = _.repartition(chunk => Chunk.array(chunk.split(",")))
 
   def printResult(name: String, value: Long, expected: Long): IO[Unit] =
     info(s"$name: " +  value + " - " + (if (value === expected) "Success" else "Failure"))
